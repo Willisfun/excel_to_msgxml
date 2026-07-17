@@ -286,22 +286,19 @@ namespace Excel_to_Msgxml
                         UpdateLanguageSheet(
                             traditionalChineseExcelSheet,
                             document,
-                            "Chinese",
-                            false);
+                            "Chinese");
 
                     result.EnglishCount =
                         UpdateLanguageSheet(
                             englishExcelSheet,
                             document,
-                            "EN",
-                            true);
+                            "English");
 
                     result.SimplifiedChineseCount =
                         UpdateLanguageSheet(
                             simplifiedChineseExcelSheet,
                             document,
-                            "SimplifiedChinese",
-                            false);
+                            "SimplifiedChinese");
         
 
                 SaveAsUtf16(document, outputMsgXmlPath);
@@ -317,8 +314,7 @@ namespace Excel_to_Msgxml
         private int UpdateLanguageSheet(
             IXLWorksheet excelSheet,
             XDocument document,
-            string xmlSheetName,
-            bool xmlSheetNameContains)
+            string xmlSheetName)
         {
             // 1. 找到 MSGXML 中對應的語言 Sheet
             XElement xmlSheet = document
@@ -332,14 +328,6 @@ namespace Excel_to_Msgxml
 
                     string actualSheetName =
                         GetAttributeValue(element, "name");
-
-                    if (xmlSheetNameContains)
-                    {
-                        return actualSheetName.IndexOf(
-                            xmlSheetName,
-                            StringComparison.OrdinalIgnoreCase) >= 0;
-                    }
-
                     return string.Equals(
                         actualSheetName,
                         xmlSheetName,
